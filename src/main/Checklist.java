@@ -5,8 +5,8 @@ import java.util.ArrayList;
 public class Checklist extends ListItem
 {
     private final ArrayList<ListItem> items = new ArrayList<>();
-    public Checklist(String name){
-        super(name);
+    public Checklist(String name, String type){
+        super(name,type);
     }
 
     public void addItem(ListItem new_item){
@@ -21,14 +21,14 @@ public class Checklist extends ListItem
         if (index == -1){
             throw new RuntimeException("not a valid item");
         }
-        items.set( index , new ListItem(list.getItemName()) );
+        items.set( index , new ListItem(list.getItemName(),list.datatype) );
     }
     public void item_to_list(ListItem item){
         int index = items.indexOf(item);
         if (index == -1){
             throw new RuntimeException("not a valid item");
         }
-        items.set( index , new Checklist(item.getItemName()) );
+        items.set( index , new Checklist(item.getItemName(),item.datatype) );
     }
 
     @Override

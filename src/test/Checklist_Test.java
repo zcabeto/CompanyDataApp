@@ -8,9 +8,9 @@ import java.util.List;
 
 public class Checklist_Test {
     private final String list_name = "list_all";
-    private final Checklist checklist = new Checklist(list_name);
-    private final ListItem testItem = new ListItem("item");
-    private final Checklist testList = new Checklist("list");
+    private final Checklist checklist = new Checklist(list_name,"");
+    private final ListItem testItem = new ListItem("item","");
+    private final Checklist testList = new Checklist("list","");
 
     @Test
     public void nameIsSet(){

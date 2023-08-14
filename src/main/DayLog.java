@@ -5,21 +5,28 @@ import java.util.ArrayList;
 
 public class DayLog
 {
-    private String name;
+    private final int DAYS = 5;
     private ArrayList<Checklist> previousDays = new ArrayList<>();
     private ArrayList<Checklist> comingDays = new ArrayList<>();
     private LocalDate currentDate;
-    private final int DAYS = 5;
+        // group types of data together for easier referencing...
+    private ArrayList<String> data_types = new ArrayList<>();
     public DayLog(LocalDate date){
         currentDate = date;
         for (int i=0; i<DAYS; i++){
-            previousDays.add(new Checklist(currentDate.minusDays(DAYS-i).toString()));
-            comingDays.add(new Checklist(currentDate.plusDays(i).toString()));
+            previousDays.add(new Checklist(currentDate.minusDays(DAYS-i).toString(),""));
+            comingDays.add(new Checklist(currentDate.plusDays(i).toString(),""));
         }
     }
     public DayLog(){
         this(LocalDate.now());
     }
+
+
+
+
+
+
 
     public ArrayList<Checklist> getDataAll(){
         updateDates();
@@ -27,7 +34,6 @@ public class DayLog
         allDays.addAll(comingDays);
         return allDays;
     }
-
     public Checklist getDataToday(){
         updateDates();
         return comingDays.get(0);
@@ -51,7 +57,7 @@ public class DayLog
         // add new days
         iterateDate = currentDate.plusDays(DAYS);
         while (!iterateDate.isEqual(now.plusDays(DAYS))){
-            comingDays.add(new Checklist(iterateDate.toString()));
+            comingDays.add(new Checklist(iterateDate.toString(),""));
             iterateDate = iterateDate.plusDays(1);
         }
     }
