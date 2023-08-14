@@ -2,8 +2,8 @@ package main;
 
 public class ListItem
 {
-    private String itemName;
-    private boolean isChecked;
+    protected String itemName;
+    protected int isChecked;        // -1 not checkable, 0 not done, 1 done
 
     public ListItem(String name){
         itemName = name;
@@ -15,7 +15,9 @@ public class ListItem
         itemName = name;
     }
     public void checkbox(){
-        isChecked = !isChecked;
+        if (isChecked != -1) {
+            isChecked = 1 - isChecked;
+        }
     }
 
     @Override
