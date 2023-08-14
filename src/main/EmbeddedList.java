@@ -2,10 +2,10 @@ package main;
 
 import java.util.ArrayList;
 
-public class Checklist extends ListItem
+public class EmbeddedList extends ListItem
 {
     private final ArrayList<ListItem> items = new ArrayList<>();
-    public Checklist(String name, String type){
+    public EmbeddedList(String name, String type){
         super(name,type);
     }
 
@@ -16,7 +16,7 @@ public class Checklist extends ListItem
         items.remove(old_item);
     }
     public ArrayList<ListItem> getItems(){ return items; }
-    public void list_to_item(Checklist list){
+    public void list_to_item(EmbeddedList list){
         int index = items.indexOf(list);
         if (index == -1){
             throw new RuntimeException("not a valid item");
@@ -28,7 +28,7 @@ public class Checklist extends ListItem
         if (index == -1){
             throw new RuntimeException("not a valid item");
         }
-        items.set( index , new Checklist(item.getItemName(),item.datatype) );
+        items.set( index , new EmbeddedList(item.getItemName(),item.datatype) );
     }
 
     @Override
