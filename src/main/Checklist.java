@@ -16,15 +16,28 @@ public class Checklist extends ListItem
         items.remove(old_item);
     }
     public ArrayList<ListItem> getItems(){ return items; }
-    public void list_to_item(Checklist inner_list){
-        items.set( items.indexOf(inner_list) , new ListItem(inner_list.getItemName()) );
+    public void list_to_item(Checklist list){
+        int index = items.indexOf(list);
+        if (index == -1){
+            throw new RuntimeException("not a valid item");
+        }
+        items.set( index , new ListItem(list.getItemName()) );
     }
-    public void item_to_list(ListItem inner_item){
-        items.set( items.indexOf(inner_item) , new Checklist(inner_item.getItemName()) );
+    public void item_to_list(ListItem item){
+        int index = items.indexOf(item);
+        if (index == -1){
+            throw new RuntimeException("not a valid item");
+        }
+        items.set( index , new Checklist(item.getItemName()) );
     }
 
     @Override
     public String toString(){
-        return items.toString();
+        StringBuilder sb = new StringBuilder(itemName+"{");
+        for (ListItem item : items){
+            sb.append("\n").append(item);
+        }
+        sb.append("}");
+        return sb.toString();
     }
 }
