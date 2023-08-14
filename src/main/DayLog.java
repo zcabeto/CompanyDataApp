@@ -6,16 +6,16 @@ import java.util.ArrayList;
 public class DayLog
 {
     private final int DAYS = 5;
-    private ArrayList<Checklist> previousDays = new ArrayList<>();
-    private ArrayList<Checklist> comingDays = new ArrayList<>();
+    private ArrayList<EmbeddedList> previousDays = new ArrayList<>();
+    private ArrayList<EmbeddedList> comingDays = new ArrayList<>();
     private LocalDate currentDate;
         // group types of data together for easier referencing...
     private ArrayList<String> data_types = new ArrayList<>();
     public DayLog(LocalDate date){
         currentDate = date;
         for (int i=0; i<DAYS; i++){
-            previousDays.add(new Checklist(currentDate.minusDays(DAYS-i).toString(),""));
-            comingDays.add(new Checklist(currentDate.plusDays(i).toString(),""));
+            previousDays.add(new EmbeddedList(currentDate.minusDays(DAYS-i).toString(),""));
+            comingDays.add(new EmbeddedList(currentDate.plusDays(i).toString(),""));
         }
     }
     public DayLog(){
@@ -28,13 +28,13 @@ public class DayLog
 
 
 
-    public ArrayList<Checklist> getDataAll(){
+    public ArrayList<EmbeddedList> getDataAll(){
         updateDates();
-        ArrayList<Checklist> allDays = new ArrayList<>(previousDays);
+        ArrayList<EmbeddedList> allDays = new ArrayList<>(previousDays);
         allDays.addAll(comingDays);
         return allDays;
     }
-    public Checklist getDataToday(){
+    public EmbeddedList getDataToday(){
         updateDates();
         return comingDays.get(0);
     }
@@ -57,7 +57,7 @@ public class DayLog
         // add new days
         iterateDate = currentDate.plusDays(DAYS);
         while (!iterateDate.isEqual(now.plusDays(DAYS))){
-            comingDays.add(new Checklist(iterateDate.toString(),""));
+            comingDays.add(new EmbeddedList(iterateDate.toString(),""));
             iterateDate = iterateDate.plusDays(1);
         }
     }
