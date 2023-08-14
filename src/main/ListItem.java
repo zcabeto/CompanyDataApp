@@ -1,4 +1,4 @@
-package MAIN;
+package main;
 
 public class ListItem
 {
