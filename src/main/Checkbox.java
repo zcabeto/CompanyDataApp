@@ -1,6 +1,4 @@
-package main2;
-
-import main2.Item;
+package main;
 
 public class Checkbox extends Item {
     private Boolean isChecked;

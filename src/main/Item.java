@@ -1,4 +1,4 @@
-package main2;
+package main;
 
 abstract class Item {
     private String name;

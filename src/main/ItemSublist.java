@@ -1,6 +1,4 @@
-package main2;
-
-import main2.Item;
+package main;
 
 import java.util.ArrayList;
 
