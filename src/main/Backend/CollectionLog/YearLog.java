@@ -1,4 +1,7 @@
-package main;
+package main.Backend.CollectionLog;
+
+import main.Backend.CollectionLog.DayLog;
+import main.Backend.CollectionLog.Section;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -22,20 +25,30 @@ public class YearLog {
         this(LocalDate.now());
     }
 
-    public ArrayList<Section> getDayInfo(LocalDate date){
+    public DayLog getDayInfo(LocalDate date){
         updateDayInfo();
-        DayLog day;
         if (date.isBefore(currentDate)){        // previous days
-            day = previousDays.get(currentDate.compareTo(date));
+            return previousDays.get(currentDate.compareTo(date));
         } else {                                // current or following days
-            day = comingDays.get(date.compareTo(currentDate));
+            return comingDays.get(date.compareTo(currentDate));
         }
-        return day.sections;
     }
-    public ArrayList<Section> getTodayInfo(){
-        ArrayList<Section> sections = new ArrayList<>(today.sections);
-        sections.addAll(comingDays.get(0).sections);
-        return sections;
+    public DayLog getTodayInfo(){
+        DayLog todayTotal = new DayLog(today);
+        todayTotal.sections.addAll(comingDays.get(0).sections);
+        return todayTotal;
+    }
+    public void addToDaily(Section section){
+        updateDayInfo();
+        today.sections.add(section);
+    }
+    public void addToCalendar(Section section, LocalDate date){
+        updateDayInfo();
+        if (date.isBefore(currentDate)){        // previous days
+            previousDays.get(currentDate.compareTo(date)).sections.add(section);
+        } else {                                // current or following days
+            comingDays.get(date.compareTo(currentDate)).sections.add(section);
+        }
     }
 
 
