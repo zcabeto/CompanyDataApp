@@ -2,19 +2,15 @@ package main2;
 
 public class Section extends ItemSublist
 {
-    private boolean keepData;       // should the system retain the data input once the day has passed?
-    private boolean keepSection;    // should the section still be recorded once the day has passed?
+    private boolean logSection;     // should the section still be recorded once the day has passed?
+    private boolean clearSection;   // if TODAY, may want to empty information
 
-    public Section(String name) {
-        super(name);
+    public boolean logSection(){
+        return logSection;     // return false if section is to be deleted
     }
-
-    public void resetData(){
-        if (!keepData){
+    public void clear(){
+        if (clearSection){
             voidData();
         }
-    }
-    public boolean logSection(){
-        return keepSection;
     }
 }
