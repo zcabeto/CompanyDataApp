@@ -6,6 +6,11 @@ import java.util.ArrayList;
 
 public class ItemSublist extends Item {
     private ArrayList<Item> items;
+
+    public ItemSublist(String name) {
+        super(name);
+    }
+
     public ArrayList<Item> getData() {
         return this.items;
     }
