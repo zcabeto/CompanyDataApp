@@ -1,4 +1,4 @@
-package main;
+package main.Backend.CollectionLog;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -12,6 +12,13 @@ public class DayLog {
     }
     public DayLog(){
         this.day = LocalDate.now();
+    }
+    public DayLog(DayLog day){
+        // copy another log information
+        this.sections = day.sections;
+    }
+    public LocalDate getDay(){
+        return day;
     }
 
     public void dayComplete(){

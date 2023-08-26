@@ -1,9 +1,16 @@
-package main;
+package main.Backend.InfoLog;
 
 import java.util.ArrayList;
 
 public class ItemSublist extends Item {
-    private ArrayList<Item> items;
+    protected ArrayList<Item> items;
+
+    public ItemSublist(String name) {
+        super(name);
+    }
+    public ArrayList<Item> getItems(){
+        return this.items;
+    }
 
     public ArrayList<Item> getData() {
         return this.items;
