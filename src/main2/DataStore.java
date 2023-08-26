@@ -5,10 +5,6 @@ import main2.Item;
 public class DataStore extends Item {
     private String inputData;
 
-    public DataStore(String name) {
-        super(name);
-    }
-
     public String getData() {
         return this.inputData;
     }
