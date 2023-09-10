@@ -28,4 +28,34 @@ public class Checkbox_Test {
         item.setDescription(description);
         assertEquals(description,item.getDescription());
     }
+
+    @Test
+    public void defaultIsFalse(){
+        item = new Checkbox(name);
+        System.out.println(item.getData());
+        assert(!item.getData());
+    }
+
+    @Test
+    public void checkboxMakesTrue(){
+        item = new Checkbox(name);
+        item.checkbox();
+        assert(item.getData());
+    }
+
+    @Test
+    public void checkboxTwiceMakesFalse(){
+        item = new Checkbox(name);
+        item.checkbox();
+        item.checkbox();
+        assert(!item.getData());
+    }
+
+    @Test
+    public void voidDataMakesFalse(){
+        item = new Checkbox(name);
+        item.checkbox();
+        item.voidData();
+        assert(!item.getData());
+    }
 }
