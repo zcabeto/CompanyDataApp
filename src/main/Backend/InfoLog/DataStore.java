@@ -1,7 +1,7 @@
 package main.Backend.InfoLog;
 
 public class DataStore extends Item {
-    private String inputData;
+    private String inputData = "";
 
     public DataStore(String name) {
         super(name);
