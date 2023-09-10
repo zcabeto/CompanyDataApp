@@ -3,7 +3,7 @@ package main.Backend.InfoLog;
 import java.util.ArrayList;
 
 public class ItemSublist extends Item {
-    protected ArrayList<Item> items;
+    protected ArrayList<Item> items = new ArrayList<>();
 
     public ItemSublist(String name) {
         super(name);
