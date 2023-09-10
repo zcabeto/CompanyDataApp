@@ -18,9 +18,11 @@ public class Section extends ItemSublist
     public boolean logSection(){
         return logSection;     // return false if section is to be deleted
     }
-    public void clear(){
+    public boolean clear(){
         if (clearSection){
             voidData();
+            return true;
         }
+        return false;
     }
 }
