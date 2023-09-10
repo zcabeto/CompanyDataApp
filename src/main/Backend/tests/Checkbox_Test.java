@@ -32,7 +32,6 @@ public class Checkbox_Test {
     @Test
     public void defaultIsFalse(){
         item = new Checkbox(name);
-        System.out.println(item.getData());
         assert(!item.getData());
     }
 
