@@ -2,7 +2,7 @@ package main.Backend.InfoLog;
 
 
 public class Checkbox extends Item {
-    private Boolean isChecked;
+    private Boolean isChecked = false;
 
     public Checkbox(String name) {
         super(name);
@@ -11,7 +11,7 @@ public class Checkbox extends Item {
     public Boolean getData(){
         return this.isChecked;
     }
-    public void checkbox(String data){
+    public void checkbox(){
         this.isChecked = !this.isChecked;
     }
     public void voidData() { this.isChecked = false; }
