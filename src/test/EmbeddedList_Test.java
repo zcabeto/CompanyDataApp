@@ -1,16 +1,12 @@
 package test;
-import main.*;
-import static org.junit.Assert.*;
-import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.junit.Test;
 
 public class EmbeddedList_Test {
     private final String list_name = "list_all";
-    private final EmbeddedList embeddedList = new EmbeddedList(list_name,"");
-    private final ListItem testItem = new ListItem("item","");
-    private final EmbeddedList testList = new EmbeddedList("list","");
+    private final ItemSublist embeddedList = new ItemSublist();
+    private final Item testItem = new Item();
+    private final ItemSublist testList = new ItemSublist();
 
     @Test
     public void nameIsSet(){
