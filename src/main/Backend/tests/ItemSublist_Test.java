@@ -1,6 +1,5 @@
 package main.Backend.tests;
 
-import main.Backend.InfoLog.Checkbox;
 import main.Backend.InfoLog.*;
 import org.junit.Test;
 
