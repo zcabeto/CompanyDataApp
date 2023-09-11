@@ -29,10 +29,17 @@ public class LogHandler {
         }
     }
 
-    public DayLog getDayInfo(LocalDate date){ return data.getDayInfo(date); }
-    public DayLog getTodayInfo(){ return data.getTodayInfo(); }
+    public DayLog getDayInfo(LocalDate date){
+        data.updateDay();
+        return data.getDayInfo(date);
+    }
+    public DayLog getTodayInfo(){
+        data.updateDay();
+        return data.getTodayInfo();
+    }
 
     public Section addSection(String name, boolean[] args){
+        data.updateDay();
         Section section;
         try {
             boolean isToday = args[0];          // true: logged via TODAY tab, false: logged via CALENDAR tab
@@ -51,6 +58,7 @@ public class LogHandler {
         }
     }
     public Section addSection(String name, LocalDate date, boolean[] args){
+        data.updateDay();
         Section section;
         try {
             boolean saveInCalendar = args[1];   // true: eod save in previousDays, false: eod discard
