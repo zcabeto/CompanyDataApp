@@ -43,8 +43,14 @@ public class YearLog {
     }
     public void addToCalendar(Section section, LocalDate date){
         if (date.isBefore(currentDate)){        // previous days
-            previousDays.get((int) ChronoUnit.DAYS.between(date,currentDate)).sections.add(section);
-        } else {                                // current or following days
+            if (ChronoUnit.DAYS.between(date,currentDate) > DAYS) {
+                throw new RuntimeException("Date Out of Bounds");
+            }
+            previousDays.get(DAYS-(int) ChronoUnit.DAYS.between(date,currentDate)).sections.add(section);
+        } else {
+            if (ChronoUnit.DAYS.between(currentDate,date) > DAYS) {
+                throw new RuntimeException("Date Out of Bounds");
+            }// current or following days
             comingDays.get((int) ChronoUnit.DAYS.between(currentDate,date)).sections.add(section);
         }
     }
