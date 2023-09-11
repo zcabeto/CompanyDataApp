@@ -16,7 +16,9 @@ public class LogHandler {
             new_item = new DataStore(itemName);
         } else if (itemType==2){
             new_item = new ItemSublist(itemName);
-        } else { return null; }
+        } else {
+            throw new RuntimeException("Input Argument's Insufficient");
+        }
         section.addItem(new_item);
         return new_item;
     }
@@ -38,35 +40,26 @@ public class LogHandler {
         return data.getTodayInfo();
     }
 
-    public Section addSection(String name, boolean[] args){
+    public Section addSectionToday(String name, boolean saveInCalendar, boolean repeatDaily, boolean refreshDaily){
         data.updateDay();
-        Section section;
         try {
-            boolean isToday = args[0];          // true: logged via TODAY tab, false: logged via CALENDAR tab
-            boolean saveInCalendar = args[1];   // true: eod save in previousDays, false: eod discard
-            boolean repeatDaily = args[2];      // true: logged through TODAY but only needed in calendar
+            // saveInCalendar - true: eod save in previousDays, false: eod discard
+            // repeatDaily - true: logged through TODAY but only needed in calendar
             if (!repeatDaily){
-                return addSection(name, LocalDate.now(), args);
+                return addSectionCalendar(name, LocalDate.now(), saveInCalendar);
                 // non-repeating: treat as though entered through calendar
             }
-            boolean refreshDaily = args[3];
-            section = new Section(name, saveInCalendar, refreshDaily);
+            Section section = new Section(name, saveInCalendar, refreshDaily);
             data.addToDaily(section);
             return section;
         } catch (ArrayIndexOutOfBoundsException e){
             throw new RuntimeException("Input Argument's Insufficient");
         }
     }
-    public Section addSection(String name, LocalDate date, boolean[] args){
+    public Section addSectionCalendar(String name, LocalDate date, boolean saveInCalendar){
         data.updateDay();
-        Section section;
-        try {
-            boolean saveInCalendar = args[1];   // true: eod save in previousDays, false: eod discard
-            section = new Section(name, saveInCalendar, false);
-            data.addToCalendar(section, date);
-            return section;
-        } catch (ArrayIndexOutOfBoundsException e){
-            throw new RuntimeException("Input Argument's Insufficient");
-        }
+        Section section = new Section(name, saveInCalendar, false);
+        data.addToCalendar(section, date);
+        return section;
     }
 }
