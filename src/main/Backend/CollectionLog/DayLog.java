@@ -29,4 +29,7 @@ public class DayLog {
             section.clear();
         }
     }
+    public String toString(){
+        return this.day.toString();
+    }
 }
