@@ -16,10 +16,10 @@ public class Section extends ItemSublist
     }
 
     public boolean logSection(){
-        return logSection;     // return false if section is to be deleted
+        return this.logSection;     // return false if section is to be deleted
     }
     public boolean clear(){
-        if (clearSection){
+        if (this.clearSection){
             voidData();
             return true;
         }
