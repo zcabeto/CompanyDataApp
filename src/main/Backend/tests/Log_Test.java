@@ -12,6 +12,7 @@ import java.util.Random;
 
 public class Log_Test {
     YearLog calendar;
+    final int DAYS = 180;
     LocalDate today = LocalDate.now();
     Random random = new Random();
 
@@ -19,21 +20,58 @@ public class Log_Test {
     public void storeDataInRangeOfToday(){
         calendar = new YearLog();
         assert(calendar.getTodayInfo()!=null);
-        assert(calendar.getDayInfo(today.plusDays(random.nextInt(180)))!=null);
-        assert(calendar.getDayInfo(today.minusDays(random.nextInt(180)))!=null);
+        assert(calendar.getDayInfo(today.plusDays(random.nextInt(DAYS)))!=null);
+        assert(calendar.getDayInfo(today.minusDays(random.nextInt(DAYS)))!=null);
+    }
+
+    @Test (expected = RuntimeException.class)
+    public void farForwardDateThrowsException(){
+        calendar = new YearLog();
+        calendar.getDayInfo(today.plusDays(DAYS+1));
+    }
+    @Test (expected = RuntimeException.class)
+    public void farBackDateThrowsException(){
+        calendar = new YearLog();
+        calendar.getDayInfo(today.minusDays(DAYS+1));
+    }
+
+    @Test
+    public void dateGetterRetrievesCorrectDate(){
+        calendar = new YearLog();
+        LocalDate date1 = LocalDate.now().plusDays(random.nextInt(1,DAYS));
+        LocalDate date2 = LocalDate.now().minusDays(random.nextInt(1,DAYS));
+
+        assert(calendar.getDayInfo(date1).getDay().equals(date1));
+        assert(calendar.getDayInfo(date2).getDay().equals(date2));
+    }
+
+    @Test
+    public void sectionAddsToCorrectDate(){
+        calendar = new YearLog();
+        String name1 = "name1"; String name2 = "name2";
+        LocalDate date1 = LocalDate.now().plusDays(random.nextInt(1,DAYS));
+        Section section1 = new Section(name1,false,false);
+        calendar.addToCalendar(section1,date1);
+
+        LocalDate date2 = LocalDate.now().minusDays(random.nextInt(1,DAYS));
+        Section section2 = new Section(name2,false,false);
+        calendar.addToCalendar(section2,date2);
+
+        assert(calendar.getDayInfo(date1).sections.contains(section1));
+        assert(calendar.getDayInfo(date2).sections.contains(section2));
     }
 
     @Test
     public void dayLogsCorrespondByDate(){
         calendar = new YearLog();
-        LocalDate date = today.plusDays(random.nextInt(180));
+        LocalDate date = today.plusDays(random.nextInt(DAYS));
         assertEquals(calendar.getDayInfo(date).getDay(),date);
     }
 
     @Test
     public void calendarSectionsVisible(){
         calendar = new YearLog();
-        LocalDate date = today.plusDays(random.nextInt(180));
+        LocalDate date = today.plusDays(random.nextInt(DAYS));
         Section section = new Section("name",true,true);
         // visible in future
         calendar.addToCalendar(section,date);
@@ -44,18 +82,17 @@ public class Log_Test {
     }
     @Test
     public void calendarInfoVisibleViaTodayWhenReached(){
-        LocalDate date = today.minusDays(random.nextInt(1,180));  // centred on random day
+        LocalDate date = today.minusDays(random.nextInt(1,DAYS));  // centred on random day
         calendar = new YearLog(date);
         Section section = new Section("name",true,true);
 
         calendar.addToCalendar(section,today);  // added to day that should be center
         calendar.updateDay();                   // updated to centre the day
         assert(calendar.getTodayInfo().sections.contains(section));
-
     }
     @Test
     public void dayShiftRemoveNonLoggedData(){
-        LocalDate date = today.minusDays(random.nextInt(1,180));
+        LocalDate date = today.minusDays(random.nextInt(1,DAYS));
         calendar = new YearLog(date);
         Section sectionKeep = new Section("name",true,true);
         Section sectionRemove = new Section("name",false,true);
@@ -70,7 +107,7 @@ public class Log_Test {
     }
     @Test
     public void dataResetEachDay(){
-        LocalDate date = today.minusDays(random.nextInt(1,180));
+        LocalDate date = today.minusDays(random.nextInt(1,DAYS));
         calendar = new YearLog(date);
         Checkbox boxKeep = new Checkbox("name");
         boxKeep.checkbox();
