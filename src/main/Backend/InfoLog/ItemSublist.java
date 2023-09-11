@@ -8,9 +8,6 @@ public class ItemSublist extends Item {
     public ItemSublist(String name) {
         super(name);
     }
-    public ArrayList<Item> getItems(){
-        return this.items;
-    }
 
     public ArrayList<Item> getData() {
         return this.items;
