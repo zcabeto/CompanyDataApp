@@ -5,9 +5,10 @@ import main.Backend.CollectionLog.Section;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.time.temporal.ChronoUnit;
 
 public class YearLog {
-    private final int DAYS = 5;
+    private final int DAYS = 180;
     private ArrayList<DayLog> previousDays = new ArrayList<>();
     private ArrayList<DayLog> comingDays = new ArrayList<>();
     private LocalDate currentDate;
@@ -26,11 +27,10 @@ public class YearLog {
     }
 
     public DayLog getDayInfo(LocalDate date){
-        updateDayInfo();
         if (date.isBefore(currentDate)){        // previous days
-            return previousDays.get(currentDate.compareTo(date));
+            return previousDays.get(DAYS-(int) ChronoUnit.DAYS.between(date,currentDate));
         } else {                                // current or following days
-            return comingDays.get(date.compareTo(currentDate));
+            return comingDays.get((int) ChronoUnit.DAYS.between(currentDate,date));
         }
     }
     public DayLog getTodayInfo(){
@@ -39,55 +39,36 @@ public class YearLog {
         return todayTotal;
     }
     public void addToDaily(Section section){
-        updateDayInfo();
         today.sections.add(section);
     }
     public void addToCalendar(Section section, LocalDate date){
-        updateDayInfo();
         if (date.isBefore(currentDate)){        // previous days
-            previousDays.get(currentDate.compareTo(date)).sections.add(section);
+            previousDays.get((int) ChronoUnit.DAYS.between(date,currentDate)).sections.add(section);
         } else {                                // current or following days
-            comingDays.get(date.compareTo(currentDate)).sections.add(section);
+            comingDays.get((int) ChronoUnit.DAYS.between(currentDate,date)).sections.add(section);
         }
     }
 
-
-    private void updateDayInfo(){
-        // calendar days are shifted
-        DayLog prevToday = updateCalendar();
-        if (prevToday==null) { return; }
-        // today's information logged in calendar
-        ArrayList<Section> todaySaved = new ArrayList<>(this.today.sections);
-        todaySaved.removeIf(Section::logSection);
-        prevToday.sections.addAll(todaySaved);
-        // reset new day's information
-        this.today.clearInfo();
+    public void updateDay(){
+        if (currentDate.isEqual(LocalDate.now())) { return; }
+        ArrayList<Section> save_today = new ArrayList<>(today.sections);
+        save_today.removeIf(section -> !section.logSection());
+        comingDays.get(0).sections.addAll(save_today);
+        today.clearInfo();
+        updateCal();
     }
-    private DayLog updateCalendar(){
-        DayLog prevToday = comingDays.get(0);
-        LocalDate now = LocalDate.now();
-        if (currentDate.isEqual(now)){ return null; }
-        LocalDate iterateDate = currentDate.minusDays(DAYS);
-        // remove old days
-        while (!iterateDate.isEqual(now.minusDays(DAYS))){
+    private void updateCal(){
+        DayLog day;
+        while (!currentDate.isEqual(LocalDate.now())){
+            // move future to past as necessary
+            day = comingDays.remove(0);
+            day.dayComplete();
+            previousDays.add(day);
+            // fix array lengths
             previousDays.remove(0);
-            iterateDate = iterateDate.plusDays(1);
+            comingDays.add(new DayLog(currentDate.plusDays(DAYS)));
+            // iterate days
+            currentDate = currentDate.plusDays(1);
         }
-        // move future days into the past
-        iterateDate = currentDate.minusDays(1);
-        while (!iterateDate.isEqual(now.minusDays(1))){
-            DayLog dayNowInPast = comingDays.remove(0);
-            dayNowInPast.dayComplete();     // remove data that does not need storing
-            previousDays.add(dayNowInPast);
-            iterateDate = iterateDate.plusDays(1);
-        }
-        // add new days
-        iterateDate = currentDate.plusDays(DAYS);
-        while (!iterateDate.isEqual(now.plusDays(DAYS))){
-            comingDays.add(new DayLog(iterateDate));
-            iterateDate = iterateDate.plusDays(1);
-        }
-        currentDate = now;
-        return prevToday;
     }
 }
