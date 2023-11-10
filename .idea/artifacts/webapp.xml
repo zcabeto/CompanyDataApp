@@ -1,6 +1,15 @@
 <component name="ArtifactManager">
-  <artifact type="exploded-war" name="webapp">
+  <artifact type="exploded-war" build-on-make="true" name="webapp">
     <output-path>$PROJECT_DIR$/out/artifacts/webapp</output-path>
-    <root id="root" />
+    <root id="root">
+      <element id="module-output" name="CompanyDataApp" />
+      <element id="module-source" name="CompanyDataApp" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="lib">
+          <element id="library" level="module" name="JUnit4" module-name="CompanyDataApp" />
+          <element id="library" level="project" name="Java EE 6-Java EE 6" />
+        </element>
+      </element>
+    </root>
   </artifact>
 </component>
