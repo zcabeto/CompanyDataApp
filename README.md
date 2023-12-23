@@ -11,6 +11,6 @@ Version 1 (Completed) [Java]
 - must be accessed via the Java terminal and lacks interface.
 
 Version 2 (In Progress) [Javascript]
-- Version 1 Java Backend to be converted to equivalent Javascript OOP.
+- Version 1 Java Backend has been converted to equivalent Javascript OOP.
 - added frontend interaction to allow computationally clear and simple exchange of data from user to frontend to backend to data-store.
 - application interface to follow user-requirements and create accessible way of interacting with the data-log.
