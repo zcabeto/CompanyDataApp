@@ -22,7 +22,7 @@ abstract class Item{
     abstract voidData():void;
 }
 
-class Checkbox extends Item{
+export class Checkbox extends Item{
     private isChecked: boolean;
 
     constructor(name: string){
@@ -41,7 +41,7 @@ class Checkbox extends Item{
     }
 }
 
-class DataStore extends Item {
+export class DataStore extends Item {
     private data: string;
 
     constructor(name: string){
@@ -60,7 +60,7 @@ class DataStore extends Item {
     }
 }
 
-class ItemSublist extends Item {
+export class ItemSublist extends Item {
     private list: Array<Item>;
 
     constructor(name: string){

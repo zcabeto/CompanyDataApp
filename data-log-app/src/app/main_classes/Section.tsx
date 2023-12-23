@@ -1,6 +1,6 @@
 import ItemSublist from 'ItemTypes.tsx'
 
-class Section extends ItemSublist {
+export class Section extends ItemSublist {
     private isLogged: boolean;
     private clearSection: boolean;
 

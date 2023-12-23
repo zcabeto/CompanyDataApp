@@ -1,6 +1,6 @@
 import Section from 'Section.tsx'
 
-class DayLog {
+export class DayLog {
     private date: Date;
     public sections: Array<Section>;
 
@@ -28,7 +28,7 @@ class DayLog {
     }
 }
 
-class YearLog {
+export class YearLog {
     private DAYS: number;
     private previousDays: Array<DayLog>;
     private comingDays: Array<DayLog>;
