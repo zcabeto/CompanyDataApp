@@ -40,6 +40,7 @@ class YearLog {
         this.previousDays = new Array;
         this.comingDays = new Array;
         this.currentDate = new Date();
+        this.currentDate.setHours(0,0,0,0);         // only store down to the day
         this.today = new DayLog(this.currentDate);
 
         for (var i=1; i<this.DAYS; i++){
@@ -48,12 +49,23 @@ class YearLog {
         }
     }
 
-    getDayInfo(date:Date){
+    getDayInfo(date:Date):DayLog {
         if (date < this.currentDate){
             // search previousDays then return
+            for (var i=0; i<this.previousDays.length; i++){
+                if (this.previousDays[i].getDate() == date) {
+                    return this.previousDays[i];
+                }
+            }
         } else {
             // search currentDays then return
+            for (var i=0; i<this.comingDays.length; i++){
+                if (this.comingDays[i].getDate() == date) {
+                    return this.comingDays[i];
+                }
+            }
         }
+        throw new Error("Invalid Date Entered");
     }
     getTodayInfo():DayLog {
         // use a copy
@@ -69,12 +81,8 @@ class YearLog {
     addToDaily(section:Section):void {
         this.today.sections.push(section);
     }
-    addToCalendar(section:Section, date:Date):void {
-        if (date < this.currentDate){
-            // search previousDays then push
-        } else {
-            // search currentDays then push
-        }
+    addToCalendar(section:Section, log:DayLog):void {
+        log.sections.push(section);
     }
 
     updateDay():void {
