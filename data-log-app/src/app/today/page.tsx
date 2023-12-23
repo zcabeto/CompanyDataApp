@@ -1,6 +1,6 @@
 import { Metadata } from 'next'
 import Link from 'next/link'
-import {Checkbox} from '/./src/app/main_classes/ItemTypes.tsx'
+import {Item, Checkbox} from '/./src/app/main_classes/ItemTypes.tsx'
  
 export const metadata: Metadata = {
   title: 'TODAY',
@@ -14,13 +14,12 @@ export function whichPage(){
   )
 }
 
-async function data(){
-  const obj = new Checkbox();
-  return obj.getName();
+function data(): Item {
+  return new Checkbox("I_AM_A_CHECKBOX");
 }
 
 export default async function Page() {
-  const obj = new Checkbox();
+  const obj: Item = data();
   const key = obj.getName();
   return (<>{whichPage()} {key}</>)
 }
