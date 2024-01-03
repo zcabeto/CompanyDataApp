@@ -146,6 +146,9 @@ export class LocalDate {
         }
         return false;
     }
+    public toString():string {
+        return '${this.day}, ${this.month}, ${this.year}';
+    }
 
     private indexToDate(index:number, year:number):LocalDate {
         var month = 0;
