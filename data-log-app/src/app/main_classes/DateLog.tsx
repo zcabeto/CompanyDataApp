@@ -26,21 +26,30 @@ export class DayLog {
     toString():string {
         return this.date.toString();
     }
+    combineDayLogs(day:DayLog){
+        var newLog = new DayLog(this.date);
+        for (var i=0; i<this.sections.length; i++){
+            newLog.sections.push(this.sections[i]);
+        }
+        for (var i=0; i<day.sections.length; i++){
+            newLog.sections.push(day.sections[i]);
+        }
+        return newLog;
+    }
 }
 
 export class YearLog {
     private DAYS: number;
-    private previousDays: Array<DayLog>;
-    private comingDays: Array<DayLog>;
     private currentDate: Date;
-    private today: DayLog;
+    // following not public so only accessed directly by LogHandler
+    previousDays: Array<DayLog>;        
+    comingDays: Array<DayLog>;
+    today: DayLog;
 
-    constructor(){
-        this.DAYS = 180;
+    constructor(DAYS:number){
+        this.DAYS = DAYS;
         this.previousDays = new Array;
         this.comingDays = new Array;
-        this.currentDate = new Date();
-        this.currentDate.setHours(0,0,0,0);         // only store down to the day
         this.today = new DayLog(this.currentDate);
 
         for (var i=1; i<this.DAYS; i++){
@@ -49,35 +58,6 @@ export class YearLog {
         }
     }
 
-    getDayInfo(date:Date):DayLog {
-        if (date < this.currentDate){
-            // search previousDays then return
-            for (var i=0; i<this.previousDays.length; i++){
-                if (this.previousDays[i].getDate() == date) {
-                    return this.previousDays[i];
-                }
-            }
-        } else {
-            // search currentDays then return
-            for (var i=0; i<this.comingDays.length; i++){
-                if (this.comingDays[i].getDate() == date) {
-                    return this.comingDays[i];
-                }
-            }
-        }
-        throw new Error("Invalid Date Entered");
-    }
-    getTodayInfo():DayLog {
-        // use a copy
-        const todayTotal = new DayLog(new Date());
-        for (var i=0; i<this.today.sections.length; i++){
-            todayTotal.sections.push(this.today.sections[i]);
-        }
-        for (var i=0; i<this.comingDays[0].sections.length; i++){
-            todayTotal.sections.push(this.comingDays[0].sections[i]);
-        }
-        return todayTotal;
-    }
     addToDaily(section:Section):void {
         this.today.sections.push(section);
     }
@@ -112,20 +92,11 @@ export class YearLog {
             this.currentDate = this.addDays(this.currentDate, 1);
         }
     }
+}
 
-    addDays(date:Date, i:number):Date {
-        return new Date(date.getFullYear(), date.getMonth(), date.getDate()+i)
     }
-    equalDates(d1:Date, d2:Date):boolean {
-        if (d1.getDate()!=d2.getDate()){
-            return false;
         }
-        if (d1.getMonth()!=d2.getMonth()){
-            return false;
         }
-        if (d1.getFullYear()!=d2.getFullYear()){
-            return false;
         }
-        return true;
     }
 }
