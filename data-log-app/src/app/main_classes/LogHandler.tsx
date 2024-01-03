@@ -1,4 +1,6 @@
-import {DayLog, YearLog, LocalDate} from 'DateLog.tsx'
+'use client'
+
+import {DayLog, YearLog, LocalDate} from './DateLog.tsx'
 
 export class LogHandler {
     // when more companies added, expand to static Array of YearLogs
@@ -30,6 +32,6 @@ export class LogHandler {
             }
         }
     }
-
-
 }
+
+export {}

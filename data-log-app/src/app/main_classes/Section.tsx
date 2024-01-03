@@ -1,4 +1,6 @@
-import ItemSublist from 'ItemTypes.tsx'
+'use client'
+
+import ItemSublist from './ItemTypes.tsx'
 
 export class Section extends ItemSublist {
     private isLogged: boolean;
@@ -14,9 +16,11 @@ export class Section extends ItemSublist {
     }
     clear():boolean {
         if (this.clearSection){
-            voidData();
+            this.voidData();
             return true;
         }
         return false;
     }
 }
+
+export {}

@@ -1,4 +1,6 @@
-import Section from 'Section.tsx'
+'use client'
+
+import Section from './Section.tsx'
 
 export class DayLog {
     private date: LocalDate;
@@ -40,8 +42,8 @@ export class DayLog {
 
 export class YearLog {
     private DAYS: number;
-    private currentDate: LocalDate;
     // following not public so only accessed directly by LogHandler
+    currentDate: LocalDate;
     previousDays: Array<DayLog>;        
     comingDays: Array<DayLog>;
     today: DayLog;
@@ -90,7 +92,7 @@ export class YearLog {
             this.previousDays.push(day);
             // fix array lengths
             this.previousDays.splice(0,1);
-            this.comingDays.push(new Section(this.currentDate.addDays(this.DAYS)));
+            this.comingDays.push(new DayLog(this.currentDate.addDays(this.DAYS)));
             // iterate days
             this.currentDate = this.currentDate.addDays(1);
         }
@@ -221,3 +223,5 @@ export class LocalDate {
         return index + this.day;
     }
 }
+
+export {}
