@@ -1,7 +1,9 @@
 import { Metadata } from 'next'
 import Link from 'next/link'
-import {Item, Checkbox, DataStore, ItemSublist} from '/./src/app/main_classes/ItemTypes.tsx'
- 
+import {LogHandler,DayLog,LocalDate} from '/./src/app/main_classes/backend.tsx'
+
+const log:LogHandler = new LogHandler();
+
 export const metadata: Metadata = {
   title: 'CALENDAR'
 }
@@ -14,12 +16,12 @@ export function whichPage() {
   )
 }
 
-function data(): Item {
-  return new DataStore("I_AM_A_CHECKBOX");
+function getDayLog(): DayLog {
+  return log.getLog(true,null);
 }
 
 export default async function Page() {
-  const obj: Item = data();
-  const key = obj.getName();
+  const day: DayLog = getDayLog();
+  const key = day.toString();
   return (<>{whichPage()} {key}</>)
 }

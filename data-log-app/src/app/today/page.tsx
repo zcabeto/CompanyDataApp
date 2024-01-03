@@ -1,9 +1,8 @@
 import { Metadata } from 'next'
 import Link from 'next/link'
-import LogHandler from '/./src/app/main_classes/LogHandler.tsx'
-import DayLog from '/./src/app/main_classes/DateLog.tsx'
+import {LogHandler,DayLog,LocalDate} from '/./src/app/main_classes/backend.tsx'
 
-const log = new LogHandler();
+const log:LogHandler = new LogHandler();
  
 export const metadata: Metadata = {
   title: 'TODAY',
@@ -18,7 +17,7 @@ export function whichPage(){
 }
 
 function getDayLog(): DayLog {
-  return log.getLog(true, null);
+  return log.getLog(true,null);
 }
 
 export default async function Page() {
