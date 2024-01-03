@@ -1,7 +1,7 @@
 import {DayLog, YearLog, LocalDate} from 'DateLog.tsx'
-import Section from 'Section.tsx'
 
 export class LogHandler {
+    // when more companies added, expand to static Array of YearLogs
     private static log: YearLog;    // static so all webpages use same dataset
     private DAYS: number;
     constructor() {
