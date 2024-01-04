@@ -1,3 +1,5 @@
+import { Metadata } from 'next'
+
 export default function RootLayout({
   children,
 }: {
@@ -8,4 +10,8 @@ export default function RootLayout({
       <body>{children}</body>
     </html>
   )
+}
+
+export const metadata: Metadata = {
+  title: 'TODAY',
 }

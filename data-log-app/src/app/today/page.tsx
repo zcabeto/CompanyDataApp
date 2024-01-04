@@ -1,13 +1,8 @@
-import { Metadata } from 'next'
+'use client'
 import Link from 'next/link'
 import {LogHandler,DayLog,LocalDate} from '/./src/app/main_classes/backend.tsx'
 
 const log:LogHandler = new LogHandler();
- 
-export const metadata: Metadata = {
-  title: 'TODAY',
-}
-
 export function whichPage(){
   return (
     <h1 className="text-3xl font-bold">
