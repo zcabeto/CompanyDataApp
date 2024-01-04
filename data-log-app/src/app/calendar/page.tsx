@@ -1,6 +1,6 @@
 import { Metadata } from 'next'
 import Link from 'next/link'
-import {LogHandler,DayLog,LocalDate} from '/./src/app/main_classes/backend.tsx'
+import {LogHandler,DayLog,LocalDate} from './/../main_classes/backend.tsx'
 
 const log:LogHandler = new LogHandler();
 
